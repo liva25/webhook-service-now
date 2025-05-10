@@ -31,10 +31,14 @@ app.post("/webhook", async (req, res) => {
       incidentNumber: response.data?.result.number, // traversing, lookup- access value in object, ? optional chainig for null checks
       success: true,
     };
+    const number = response.data?.result.number;
+    const response1 = {
+      fulfillmentText: `Your ticket has been created. Ticket Number: ${number}`,
+    };
     if (!response?.data?.result?.number) {
       throw "not found";
     }
-    res.send(result);
+    res.send(response1);
   } catch (error) {
     console.error(error.message);
     res.status(400).send({ success: false });
